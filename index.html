@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda</title>
+    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="card.css">
+    <link rel="stylesheet" href="footer.css">
+    <!-- <script src="app.js"></script -->
+</head>
+<body>
+  <div class="header">
+    <h1>Referensi</h1>
+    <h2>Algoritma dan Pemograman</h2>
+  </div>
+
+  <div class="badan" id="badan" style="flex-direction: column;">
+    <a class="brutalist-button openai" href="/alpropraktik/code.html">
+      <div class="openai-logo">
+        <span class="openai-text">Source Code</span>
+      </div>
+    </a>
+    
+    <a class="brutalist-button openai" href="/alpropraktik/web.html">
+      <div class="openai-logo">
+        <span class="openai-text">Website</span>
+      </div>
+    </a>
+    <a class="brutalist-button openai" href="/alpropraktik/software.html">
+      <div class="openai-logo">
+        <span class="openai-text">Software</span>
+      </div>
+    </a>
+
+    <a class="brutalist-button openai" href="/alpropraktik/yt-tuttor.html">
+      <div class="openai-logo">
+        <span class="openai-text">YT Tutorial</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="footer" id="footer">
+    <p>created by Fry_sn || 2025</p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
+  
+
+
+
+<!-- 
+<script src="https://www.gstatic.com/firebasejs/9.12.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.12.1/firebase-database-compat.js"></script>
+
+<script>
+    const firebaseConfig = {
+        databaseURL: "https://cobo-terus-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    }
+    firebase.initializeApp(firebaseConfig)
+    // here connection is created with database
+    const database = firebase.database()
+
+    const dataContainer = document.getElementById('badan')
+
+    // give complete path to fetch data as given during sending
+    var fetchedData = database.ref('/Pertemuan')
+    fetchedData.on('value', (snapshot) => {
+        var data = snapshot.val()
+        // now set data in table
+        var htmlData = ''
+        for(var key in data){
+            var value = data[key]
+            htmlData += `
+                <a class="brutalist-button openai" href="${value.link}">
+                  <div class="openai-logo">
+                    <span class="openai-text">${value.Judul}</span>
+                    </div>
+                </a>
+            `;
+        }
+        // we use unique id's as reference to delete and update data
+        dataContainer.innerHTML = htmlData
+    })
+  </script> -->

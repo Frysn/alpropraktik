@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Data to Firebase Databases</title>
+    <style>
+        .container {
+            max-width: 520px;
+            margin: auto;
+            margin-top: 100px;
+            font-family: sans-serif;
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
+        input,
+        textarea {
+            width: calc(100% - 20px);
+            display: block;
+            padding: 6px;
+            font-size: 20px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+        textarea {
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Send Data to Firebase Databases</h1>
+        <div class="form">
+            <label>Judul</label>
+            <input type="text" id="judul">
+            <label>Link</label>
+            <input type="text" id="link">
+
+            <label style="display: flex; justify-content: center; align-content: center; text-align: center;">
+                <input type="checkbox" value="website" style="width: auto;">
+                Web
+            </label>
+            <label style="display: flex; justify-content: center; align-content: center; text-align: center;">
+                <input type="checkbox" value="software" style="width: auto;">
+                Software
+            </label>
+            <label style="display: flex; justify-content: center; align-content: center; text-align: center;">
+                <input type="checkbox" value="pertemuan" style="width: auto;">
+                Pertemuan
+            </label>
+            <label style="display: flex; justify-content: center; align-content: center; text-align: center;">
+                <input type="checkbox" value="youtube" style="width: auto;">
+                YouTube
+            </label>
+                
+            <button>Submit</button>
+        </div>
+    </div>
+    <!-- add firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.12.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.12.1/firebase-database-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            databaseURL: "https://cobo-terus-default-rtdb.asia-southeast1.firebasedatabase.app/"
+        }
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        const submit = document.querySelector('button');
+        submit.onclick = () => sendData();
+
+        function sendData() {
+            var name = document.getElementById('judul').value;
+            var link = document.getElementById('link').value;
+            var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+            var selectedCheckboxes = [];
+
+            checkboxes.forEach((checkbox) => {
+                selectedCheckboxes.push(checkbox.value);
+            });
+
+            // Simpan data ke Firebase
+            selectedCheckboxes.forEach((category) => {
+                var listRef = database.ref('/' + category); // Path berdasarkan kategori
+                var newRef = listRef.push(); // Buat referensi baru dengan ID unik
+
+                var data = {
+                    'Judul': name,
+                    'Link': link
+                };
+
+                newRef.set(data, function(err) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log('Data sent successfully to ' + category);
+                    }
+                });
+            });
+
+            // Clear form
+            document.getElementById('judul').value = '';
+            document.getElementById('link').value = '';
+            selectedCheckboxes = [];
+        }
+    </script>
+</body>
+</html>
